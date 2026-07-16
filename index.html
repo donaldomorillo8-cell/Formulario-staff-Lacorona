@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postulación para Staff - MTA Server</title>
+    <!-- Tailwind CSS para un diseño rápido, limpio y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; /* Slate 900 */
+            color: #f1f5f9; /* Slate 100 */
+        }
+        .form-card {
+            background-color: #1e293b; /* Slate 800 */
+            border: 1px solid #334155; /* Slate 700 */
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased pb-12">
+
+    <!-- Encabezado / Header -->
+    <header class="py-8 text-center border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-50">
+        <h1 class="text-3xl font-extrabold tracking-tight text-blue-500 sm:text-4xl">
+            SISTEMA DE POSTULACIONES
+        </h1>
+        <p class="mt-2 text-sm text-slate-400 max-w-md mx-auto px-4">
+            Servidor Dominicano de MTA.
+        </p>
+
+        <!-- Barra de Navegación / Pestañas -->
+        <div class="flex justify-center space-x-4 mt-6">
+            <button id="btnFormulario" onclick="cambiarPestaña('formulario')" class="px-4 py-2 font-bold text-sm rounded-lg bg-blue-600 text-white transition-all">
+                Formulario de Admisión
+            </button>
+            <button id="btnAdmin" onclick="abrirAdmin()" class="px-4 py-2 font-bold text-sm rounded-lg bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200 transition-all">
+                Panel Administración (Privado)
+            </button>
+        </div>
+    </header>
+
+    <!-- SECCIÓN PÚBLICA: FORMULARIO -->
+    <main id="seccionFormulario" class="max-w-3xl mx-auto px-4 mt-8">
+        <form id="staffForm" class="space-y-6">
+
+            <!-- SECCIÓN 1: Datos Personales -->
+            <div class="form-card p-6 rounded-2xl shadow-xl space-y-4">
+                <h2 class="text-xl font-bold text-blue-400 border-b border-slate-700 pb-2">Información Personal</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Nombre / Apodo</label>
+                        <input type="text" required name="nombre" placeholder="Ej. Donaldo" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Discord Tag</label>
+                        <input type="text" required name="discord" placeholder="Ej. usuario#0000" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: Preguntas de Admisión -->
+            <div class="form-card p-6 rounded-2xl shadow-xl space-y-8">
+                <h2 class="text-xl font-bold text-blue-400 border-b border-slate-700 pb-2">Cuestionario de Evaluación</h2>
+
+                <!-- Preguntas individuales recopiladas del diseño inicial -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">1. ¿Qué te motiva a postularte como Staff en nuestro servidor y qué cualidades crees que te diferencian de otros aspirantes?</label>
+                    <textarea required name="p1" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">2. Define con tus propias palabras qué es el "Roleplay" (RP) y cuál es la diferencia clave entre el juego de rol y el juego casual (DM/Freeplay).</label>
+                    <textarea required name="p2" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">3. Explica los siguientes conceptos de rol y proporciona un ejemplo de infracción para cada uno:</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div>
+                            <span class="text-xs font-bold text-blue-400">MetaGaming (MG):</span>
+                            <textarea required name="p3_mg" rows="2" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Explicación y ejemplo..."></textarea>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-blue-400">PowerGaming (PG):</span>
+                            <textarea required name="p3_pg" rows="2" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Explicación y ejemplo..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">4. Si dos usuarios están discutiendo acaloradamente por chat global (/ooc) acusándose mutuamente de romper reglas, ¿cuál es tu primera acción como Staff conectado?</label>
+                    <textarea required name="p4" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">5. Un usuario nuevo entra al servidor y empieza a atropellar a todos en la zona de spawn sin rol alguno (Anti-RP/VDM). ¿Qué sanción o procedimiento aplicas de inmediato?</label>
+                    <textarea required name="p5" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">6. ¿Cómo actuarías si un amigo cercano dentro del servidor comete una falta grave contra las reglas de rol frente a ti?</label>
+                    <textarea required name="p6" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">7. Describe el proceso correcto para atender un reporte de soporte (/report) desde que lo aceptas hasta que se resuelve el caso.</label>
+                    <textarea required name="p7" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">8. ¿Qué harías si un usuario se niega rotundamente a aceptar una sanción que le has impuesto y comienza a insultarte por mensajes privados?</label>
+                    <textarea required name="p8" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">9. ¿En qué casos consideras que un Staff está haciendo "Abuso de Poder" (Staff Abuse) y cómo evitarías caer en ello?</label>
+                    <textarea required name="p9" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">10. ¿Cuál es la diferencia entre un baneo temporal, un baneo permanente y un kickeo (expulsión)? Proporciona una situación adecuada para cada medida.</label>
+                    <textarea required name="p10" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">11. Si un jugador te reporta que ha perdido todos sus ítems o dinero debido a un aparente bug del sistema, ¿cómo manejas la situación y qué pruebas le solicitas?</label>
+                    <textarea required name="p11" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">12. ¿Cuánto tiempo estimado a la semana le puedes dedicar a las labores de Staff en el servidor?</label>
+                    <select required name="p12" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                        <option value="" disabled selected>Selecciona una opción...</option>
+                        <option value="Menos de 5 horas">Menos de 5 horas semanales</option>
+                        <option value="5 a 10 horas">5 a 10 horas semanales</option>
+                        <option value="10 a 20 horas">10 a 20 horas semanales</option>
+                        <option value="Más de 20 horas">Más de 20 horas (Alta disponibilidad)</option>
+                    </select>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">13. Ante un ataque masivo de "trolls" o spammers en el servidor cuando eres el único Staff conectado, ¿cuál sería tu plan de contingencia inmediato?</label>
+                    <textarea required name="p13" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">14. ¿Tienes experiencia previa como moderador, administrador o soporte en algún otro servidor de MTA, SA-MP o juegos similares? (Menciona cuáles si es el caso).</label>
+                    <textarea required name="p14" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-slate-300">15. Plantea una regla o sugerencia que le añadirías actualmente a la normativa de nuestro servidor para mejorar la convivencia y la experiencia de juego.</label>
+                    <textarea required name="p15" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+            </div>
+
+            <!-- Botón de Envío -->
+            <div class="text-center pt-4">
+                <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-blue-500/20 active:scale-95 duration-150 cursor-pointer">
+                    Enviar Postulación
+                </button>
+            </div>
+        </form>
+    </main>
+
+
+    <!-- SECCIÓN PRIVADA: CONTROL DE POSTULACIONES -->
+    <main id="seccionAdmin" class="max-w-4xl mx-auto px-4 mt-8 hidden">
+        <div class="form-card p-6 rounded-2xl shadow-xl space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-red-500">Postulaciones Recientes</h2>
+                    <p class="text-xs text-slate-400 mt-1">Lista interna de aspirantes evaluados.</p>
+                </div>
+                <button onclick="borrarPostulaciones()" class="px-3 py-1.5 text-xs font-bold bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded-lg transition-all">
+                    Limpiar Registro
+                </button>
+            </div>
+
+            <!-- Contenedor dinámico donde se inyectan las respuestas -->
+            <div id="contenedorPostulaciones" class="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
+                <!-- Se llenará dinámicamente con JS -->
+                <p class="text-sm text-slate-400 text-center py-8">No hay postulaciones registradas en este equipo todavía.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-xs text-slate-500 border-t border-slate-800 pt-6">
+        &copy; 2026 Plataforma de Reclutamiento MTA. Todos los derechos reservados.
+    </footer>
+
+    <!-- LÓGICA DE PROGRAMACIÓN (JS) -->
+    <script>
+        // Token o contraseña definida por ti
+        const CLAVE_ACCESO = "RD12345678909";
+        let autenticado = false;
+
+        // Función para cambiar visualmente entre el Formulario y el Admin
+        function cambiarPestaña(pestaña) {
+            const secForm = document.getElementById('seccionFormulario');
+            const secAdmin = document.getElementById('seccionAdmin');
+            const btnForm = document.getElementById('btnFormulario');
+            const btnAdmin = document.getElementById('btnAdmin');
+
+            if (pestaña === 'formulario') {
+                secForm.classList.remove('hidden');
+                secAdmin.classList.add('hidden');
+                
+                btnForm.className = "px-4 py-2 font-bold text-sm rounded-lg bg-blue-600 text-white transition-all";
+                btnAdmin.className = "px-4 py-2 font-bold text-sm rounded-lg bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200 transition-all";
+            } else if (pestaña === 'admin' && autenticado) {
+                secForm.classList.add('hidden');
+                secAdmin.classList.remove('hidden');
+
+                btnForm.className = "px-4 py-2 font-bold text-sm rounded-lg bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200 transition-all";
+                btnAdmin.className = "px-4 py-2 font-bold text-sm rounded-lg bg-red-600 text-white transition-all";
+                renderizarPostulaciones();
+            }
+        }
+
+        // Función que solicita la contraseña para acceder
+        function abrirAdmin() {
+            if (autenticado) {
+                cambiarPestaña('admin');
+                return;
+            }
+
+            const password = prompt("Por favor, introduce la clave de acceso para ver las postulaciones:");
+            
+            if (password === CLAVE_ACCESO) {
+                autenticado = true;
+                cambiarPestaña('admin');
+            } else if (password !== null) {
+                alert("Contraseña incorrecta. Acceso denegado.");
+            }
+        }
+
+        // Captura el envío del formulario público
+        document.getElementById('staffForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                id: Date.now(),
+                fecha: new Date().toLocaleString('es-DO', { timeZone: 'America/Santo_Domingo' })
+            };
+            
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Guardar en el almacenamiento del navegador (localStorage)
+            let postulaciones = JSON.parse(localStorage.getItem('mta_postulaciones')) || [];
+            postulaciones.unshift(data); // Agrega al inicio para ver las más recientes primero
+            localStorage.setItem('mta_postulaciones', JSON.stringify(postulaciones));
+
+            alert('¡Postulación enviada con éxito! El equipo de administración revisará tus respuestas pronto.');
+            this.reset();
+        });
+
+        // Dibuja visualmente las respuestas guardadas en la sección de Administración
+        function renderizarPostulaciones() {
+            const contenedor = document.getElementById('contenedorPostulaciones');
+            let postulaciones = JSON.parse(localStorage.getItem('mta_postulaciones')) || [];
+
+            if (postulaciones.length === 0) {
+                contenedor.innerHTML = `<p class="text-sm text-slate-400 text-center py-8">No hay postulaciones registradas en este equipo todavía.</p>`;
+                return;
+            }
+
+            contenedor.innerHTML = ""; // Limpiar contenido previo
+
+            postulaciones.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-900 border border-slate-700 rounded-xl p-5 space-y-4 shadow-inner";
+                
+                card.innerHTML = `
+                    <div class="flex flex-wrap justify-between items-center bg-slate-800/60 p-3 rounded-lg border border-slate-700/50">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-400 block">Aspirante</span>
+                            <span class="text-lg font-bold text-white">${item.nombre}</span>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-400 block">Discord</span>
+                            <span class="text-sm font-semibold text-slate-300">${item.discord}</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-500 block">${item.fecha}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-3 text-sm pt-2">
+                        <div><strong class="text-blue-400 block mb-1">1. Motivación y Cualidades:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p1}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">2. Definición de Roleplay:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p2}</p></div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-slate-800/30 p-2 rounded border border-slate-800">
+                            <div><strong class="text-amber-400 block mb-1">3. MetaGaming (MG):</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p3_mg}</p></div>
+                            <div><strong class="text-amber-400 block mb-1">3. PowerGaming (PG):</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p3_pg}</p></div>
+                        </div>
+
+                        <div><strong class="text-blue-400 block mb-1">4. Conflicto OOC en chat global:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p4}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">5. Atropellos en spawn (VDM):</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p5}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">6. Falta cometida por amigo cercano:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p6}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">7. Proceso de atención de reportes:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p7}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">8. Insultos por MP tras sanción:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p8}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">9. Abuso de poder (Staff Abuse):</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p9}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">10. Diferencia Ban temporal/permanente/kick:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p10}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">11. Reporte de ítems perdidos por Bug:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p11}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">12. Tiempo de dedicación semanal:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p12}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">13. Ataque masivo de Trolls/Spammers:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p13}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">14. Experiencia previa:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p14}</p></div>
+                        <div><strong class="text-blue-400 block mb-1">15. Regla o sugerencia propuesta:</strong> <p class="text-slate-300 pl-2 border-l border-slate-700">${item.p15}</p></div>
+                    </div>
+                `;
+                contenedor.appendChild(card);
+            });
+        }
+
+        // Permite borrar todo el registro guardado
+        function borrarPostulaciones() {
+            if (confirm("¿Estás seguro de que quieres borrar de este equipo todas las postulaciones registradas? Esta acción no se puede deshacer.")) {
+                localStorage.removeItem('mta_postulaciones');
+                renderizarPostulaciones();
+            }
+        }
+    </script>
+</body>
+</html>
