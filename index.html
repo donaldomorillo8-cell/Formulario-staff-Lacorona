@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postulación para Staff - MTA Server</title>
-    <!-- Tailwind CSS para un diseño rápido, limpio y responsivo -->
+    <!-- Tailwind CSS para diseño -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería Oficial de Supabase para conectar la Base de Datos -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body {
-            background-color: #0f172a; /* Slate 900 */
-            color: #f1f5f9; /* Slate 100 */
+            background-color: #0f172a;
+            color: #f1f5f9;
         }
         .form-card {
-            background-color: #1e293b; /* Slate 800 */
-            border: 1px solid #334155; /* Slate 700 */
+            background-color: #1e293b;
+            border: 1px solid #334155;
         }
     </style>
 </head>
@@ -25,10 +27,10 @@
             SISTEMA DE POSTULACIONES
         </h1>
         <p class="mt-2 text-sm text-slate-400 max-w-md mx-auto px-4">
-            Servidor Dominicano de MTA.
+            Servidor Dominicano de MTA. (Base de Datos Activa)
         </p>
 
-        <!-- Barra de Navegación / Pestañas -->
+        <!-- Barra de Navegación -->
         <div class="flex justify-center space-x-4 mt-6">
             <button id="btnFormulario" onclick="cambiarPestaña('formulario')" class="px-4 py-2 font-bold text-sm rounded-lg bg-blue-600 text-white transition-all">
                 Formulario de Admisión
@@ -39,38 +41,37 @@
         </div>
     </header>
 
-    <!-- SECCIÓN PÚBLICA: FORMULARIO -->
+    <!-- SECCIÓN FORMULARIO -->
     <main id="seccionFormulario" class="max-w-3xl mx-auto px-4 mt-8">
         <form id="staffForm" class="space-y-6">
 
-            <!-- SECCIÓN 1: Datos Personales -->
+            <!-- Datos Personales -->
             <div class="form-card p-6 rounded-2xl shadow-xl space-y-4">
                 <h2 class="text-xl font-bold text-blue-400 border-b border-slate-700 pb-2">Información Personal</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Nombre / Apodo</label>
-                        <input type="text" required name="nombre" placeholder="Ej. Donaldo" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                        <input type="text" required id="nombre" name="nombre" placeholder="Ej. Donaldo" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Discord Tag</label>
-                        <input type="text" required name="discord" placeholder="Ej. usuario#0000" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                        <input type="text" required id="discord" name="discord" placeholder="Ej. usuario#0000" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
                     </div>
                 </div>
             </div>
 
-            <!-- SECCIÓN 2: Preguntas de Admisión -->
+            <!-- Cuestionario -->
             <div class="form-card p-6 rounded-2xl shadow-xl space-y-8">
                 <h2 class="text-xl font-bold text-blue-400 border-b border-slate-700 pb-2">Cuestionario de Evaluación</h2>
 
-                <!-- Preguntas individuales recopiladas del diseño inicial -->
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">1. ¿Qué te motiva a postularte como Staff en nuestro servidor y qué cualidades crees que te diferencian de otros aspirantes?</label>
-                    <textarea required name="p1" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p1" name="p1" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Respuesta..."></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">2. Define con tus propias palabras qué es el "Roleplay" (RP) y cuál es la diferencia clave entre el juego de rol y el juego casual (DM/Freeplay).</label>
-                    <textarea required name="p2" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p2" name="p2" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Respuesta..."></textarea>
                 </div>
 
                 <div class="space-y-2">
@@ -78,58 +79,58 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                         <div>
                             <span class="text-xs font-bold text-blue-400">MetaGaming (MG):</span>
-                            <textarea required name="p3_mg" rows="2" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Explicación y ejemplo..."></textarea>
+                            <textarea required id="p3_mg" name="p3_mg" rows="2" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Ejemplo..."></textarea>
                         </div>
                         <div>
                             <span class="text-xs font-bold text-blue-400">PowerGaming (PG):</span>
-                            <textarea required name="p3_pg" rows="2" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Explicación y ejemplo..."></textarea>
+                            <textarea required id="p3_pg" name="p3_pg" rows="2" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Ejemplo..."></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">4. Si dos usuarios están discutiendo acaloradamente por chat global (/ooc) acusándose mutuamente de romper reglas, ¿cuál es tu primera acción como Staff conectado?</label>
-                    <textarea required name="p4" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p4" name="p4" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">5. Un usuario nuevo entra al servidor y empieza a atropellar a todos en la zona de spawn sin rol alguno (Anti-RP/VDM). ¿Qué sanción o procedimiento aplicas de inmediato?</label>
-                    <textarea required name="p5" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p5" name="p5" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">6. ¿Cómo actuarías si un amigo cercano dentro del servidor comete una falta grave contra las reglas de rol frente a ti?</label>
-                    <textarea required name="p6" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p6" name="p6" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">7. Describe el proceso correcto para atender un reporte de soporte (/report) desde que lo aceptas hasta que se resuelve el caso.</label>
-                    <textarea required name="p7" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p7" name="p7" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">8. ¿Qué harías si un usuario se niega rotundamente a aceptar una sanción que le has impuesto y comienza a insultarte por mensajes privados?</label>
-                    <textarea required name="p8" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p8" name="p8" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">9. ¿En qué casos consideras que un Staff está haciendo "Abuso de Poder" (Staff Abuse) y cómo evitarías caer en ello?</label>
-                    <textarea required name="p9" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p9" name="p9" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">10. ¿Cuál es la diferencia entre un baneo temporal, un baneo permanente y un kickeo (expulsión)? Proporciona una situación adecuada para cada medida.</label>
-                    <textarea required name="p10" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p10" name="p10" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">11. Si un jugador te reporta que ha perdido todos sus ítems o dinero debido a un aparente bug del sistema, ¿cómo manejas la situación y qué pruebas le solicitas?</label>
-                    <textarea required name="p11" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p11" name="p11" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">12. ¿Cuánto tiempo estimado a la semana le puedes dedicar a las labores de Staff en el servidor?</label>
-                    <select required name="p12" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
+                    <select required id="p12" name="p12" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition">
                         <option value="" disabled selected>Selecciona una opción...</option>
                         <option value="Menos de 5 horas">Menos de 5 horas semanales</option>
                         <option value="5 a 10 horas">5 a 10 horas semanales</option>
@@ -140,64 +141,64 @@
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">13. Ante un ataque masivo de "trolls" o spammers en el servidor cuando eres el único Staff conectado, ¿cuál sería tu plan de contingencia inmediato?</label>
-                    <textarea required name="p13" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p13" name="p13" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">14. ¿Tienes experiencia previa como moderador, administrador o soporte en algún otro servidor de MTA, SA-MP o juegos similares? (Menciona cuáles si es el caso).</label>
-                    <textarea required name="p14" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p14" name="p14" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-300">15. Plantea una regla o sugerencia que le añadirías actualmente a la normativa de nuestro servidor para mejorar la convivencia y la experiencia de juego.</label>
-                    <textarea required name="p15" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition" placeholder="Escribe tu respuesta aquí..."></textarea>
+                    <textarea required id="p15" name="p15" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 transition"></textarea>
                 </div>
-
             </div>
 
             <!-- Botón de Envío -->
             <div class="text-center pt-4">
-                <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-blue-500/20 active:scale-95 duration-150 cursor-pointer">
-                    Enviar Postulación
+                <button type="submit" id="btnSubmitForm" class="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-blue-500/20 active:scale-95 duration-150 cursor-pointer">
+                    Enviar Postulación a la Nube
                 </button>
             </div>
         </form>
     </main>
 
-
-    <!-- SECCIÓN PRIVADA: CONTROL DE POSTULACIONES -->
+    <!-- SECCIÓN PRIVADA DE CONTROL -->
     <main id="seccionAdmin" class="max-w-4xl mx-auto px-4 mt-8 hidden">
         <div class="form-card p-6 rounded-2xl shadow-xl space-y-6">
             <div class="flex justify-between items-center border-b border-slate-700 pb-4">
                 <div>
-                    <h2 class="text-2xl font-bold text-red-500">Postulaciones Recientes</h2>
-                    <p class="text-xs text-slate-400 mt-1">Lista interna de aspirantes evaluados.</p>
+                    <h2 class="text-2xl font-bold text-red-500">Postulaciones en Base de Datos</h2>
+                    <p class="text-xs text-slate-400 mt-1">Sincronizado con Supabase en tiempo real.</p>
                 </div>
-                <button onclick="borrarPostulaciones()" class="px-3 py-1.5 text-xs font-bold bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded-lg transition-all">
-                    Limpiar Registro
+                <button onclick="recargarPostulaciones()" class="px-3 py-1.5 text-xs font-bold bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded-lg transition-all">
+                    Actualizar Lista
                 </button>
             </div>
 
-            <!-- Contenedor dinámico donde se inyectan las respuestas -->
             <div id="contenedorPostulaciones" class="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
-                <!-- Se llenará dinámicamente con JS -->
-                <p class="text-sm text-slate-400 text-center py-8">No hay postulaciones registradas en este equipo todavía.</p>
+                <p class="text-sm text-slate-400 text-center py-8">Cargando postulaciones...</p>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="mt-12 text-center text-xs text-slate-500 border-t border-slate-800 pt-6">
-        &copy; 2026 Plataforma de Reclutamiento MTA. Todos los derechos reservados.
+        &copy; 2026 Plataforma de Reclutamiento MTA.
     </footer>
 
-    <!-- LÓGICA DE PROGRAMACIÓN (JS) -->
+    <!-- JS DE INTEGRACIÓN CON BASE DE DATOS -->
     <script>
-        // Token o contraseña definida por ti
+        // --- CONFIGURACIÓN DE SUPABASE INTEGRADA ---
+        const SUPABASE_URL = "https://qppxeyvxpspjaytflhpd.supabase.co"; 
+        // He dejado un espacio listo para que completes tu clave de acceso anónima pública del panel de API de Supabase
+        const SUPABASE_ANON_KEY = "TU_SUPABASE_PUBLIC_ANON_KEY"; 
+
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         const CLAVE_ACCESO = "RD12345678909";
         let autenticado = false;
 
-        // Función para cambiar visualmente entre el Formulario y el Admin
         function cambiarPestaña(pestaña) {
             const secForm = document.getElementById('seccionFormulario');
             const secAdmin = document.getElementById('seccionAdmin');
@@ -207,75 +208,101 @@
             if (pestaña === 'formulario') {
                 secForm.classList.remove('hidden');
                 secAdmin.classList.add('hidden');
-                
                 btnForm.className = "px-4 py-2 font-bold text-sm rounded-lg bg-blue-600 text-white transition-all";
                 btnAdmin.className = "px-4 py-2 font-bold text-sm rounded-lg bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200 transition-all";
             } else if (pestaña === 'admin' && autenticado) {
                 secForm.classList.add('hidden');
                 secAdmin.classList.remove('hidden');
-
                 btnForm.className = "px-4 py-2 font-bold text-sm rounded-lg bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200 transition-all";
                 btnAdmin.className = "px-4 py-2 font-bold text-sm rounded-lg bg-red-600 text-white transition-all";
-                renderizarPostulaciones();
+                recargarPostulaciones();
             }
         }
 
-        // Función que solicita la contraseña para acceder
         function abrirAdmin() {
             if (autenticado) {
                 cambiarPestaña('admin');
                 return;
             }
-
-            const password = prompt("Por favor, introduce la clave de acceso para ver las postulaciones:");
-            
+            const password = prompt("Introduce la clave de acceso para ver la Base de Datos:");
             if (password === CLAVE_ACCESO) {
                 autenticado = true;
                 cambiarPestaña('admin');
             } else if (password !== null) {
-                alert("Contraseña incorrecta. Acceso denegado.");
+                alert("Acceso incorrecto.");
             }
         }
 
-        // Captura el envío del formulario público
-        document.getElementById('staffForm').addEventListener('submit', function(e) {
+        // --- ENVIAR DATOS A SUPABASE ---
+        document.getElementById('staffForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = {
-                id: Date.now(),
-                fecha: new Date().toLocaleString('es-DO', { timeZone: 'America/Santo_Domingo' })
+            const btn = document.getElementById('btnSubmitForm');
+            btn.disabled = true;
+            btn.innerText = "Enviando a la Base de Datos...";
+
+            const datos = {
+                nombre: document.getElementById('nombre').value,
+                discord: document.getElementById('discord').value,
+                p1: document.getElementById('p1').value,
+                p2: document.getElementById('p2').value,
+                p3_mg: document.getElementById('p3_mg').value,
+                p3_pg: document.getElementById('p3_pg').value,
+                p4: document.getElementById('p4').value,
+                p5: document.getElementById('p5').value,
+                p6: document.getElementById('p6').value,
+                p7: document.getElementById('p7').value,
+                p8: document.getElementById('p8').value,
+                p9: document.getElementById('p9').value,
+                p10: document.getElementById('p10').value,
+                p11: document.getElementById('p11').value,
+                p12: document.getElementById('p12').value,
+                p13: document.getElementById('p13').value,
+                p14: document.getElementById('p14').value,
+                p15: document.getElementById('p15').value
             };
-            
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
 
-            // Guardar en el almacenamiento del navegador (localStorage)
-            let postulaciones = JSON.parse(localStorage.getItem('mta_postulaciones')) || [];
-            postulaciones.unshift(data); // Agrega al inicio para ver las más recientes primero
-            localStorage.setItem('mta_postulaciones', JSON.stringify(postulaciones));
+            const { error } = await _supabase
+                .from('postulaciones')
+                .insert([datos]);
 
-            alert('¡Postulación enviada con éxito! El equipo de administración revisará tus respuestas pronto.');
-            this.reset();
+            btn.disabled = false;
+            btn.innerText = "Enviar Postulación a la Nube";
+
+            if (error) {
+                console.error("Error al guardar en base de datos:", error);
+                alert("Hubo un error al guardar la postulación: " + error.message);
+            } else {
+                alert('¡Postulación guardada de manera segura en la Base de Datos con éxito!');
+                this.reset();
+            }
         });
 
-        // Dibuja visualmente las respuestas guardadas en la sección de Administración
-        function renderizarPostulaciones() {
+        // --- LEER DATOS DESDE SUPABASE ---
+        async function recargarPostulaciones() {
             const contenedor = document.getElementById('contenedorPostulaciones');
-            let postulaciones = JSON.parse(localStorage.getItem('mta_postulaciones')) || [];
+            contenedor.innerHTML = `<p class="text-sm text-slate-400 text-center py-8">Consultando base de datos remota...</p>`;
 
-            if (postulaciones.length === 0) {
-                contenedor.innerHTML = `<p class="text-sm text-slate-400 text-center py-8">No hay postulaciones registradas en este equipo todavía.</p>`;
+            const { data: postulaciones, error } = await _supabase
+                .from('postulaciones')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                contenedor.innerHTML = `<p class="text-sm text-red-400 text-center py-8">Error de conexión: ${error.message}</p>`;
                 return;
             }
 
-            contenedor.innerHTML = ""; // Limpiar contenido previo
+            if (!postulaciones || postulaciones.length === 0) {
+                contenedor.innerHTML = `<p class="text-sm text-slate-400 text-center py-8">La base de datos está vacía.</p>`;
+                return;
+            }
+
+            contenedor.innerHTML = "";
 
             postulaciones.forEach(item => {
+                const dateParsed = new Date(item.created_at).toLocaleString('es-DO', { timeZone: 'America/Santo_Domingo' });
                 const card = document.createElement('div');
                 card.className = "bg-slate-900 border border-slate-700 rounded-xl p-5 space-y-4 shadow-inner";
-                
                 card.innerHTML = `
                     <div class="flex flex-wrap justify-between items-center bg-slate-800/60 p-3 rounded-lg border border-slate-700/50">
                         <div>
@@ -287,7 +314,7 @@
                             <span class="text-sm font-semibold text-slate-300">${item.discord}</span>
                         </div>
                         <div class="text-right">
-                            <span class="text-xs text-slate-500 block">${item.fecha}</span>
+                            <span class="text-xs text-slate-500 block">${dateParsed}</span>
                         </div>
                     </div>
                     
@@ -316,14 +343,6 @@
                 `;
                 contenedor.appendChild(card);
             });
-        }
-
-        // Permite borrar todo el registro guardado
-        function borrarPostulaciones() {
-            if (confirm("¿Estás seguro de que quieres borrar de este equipo todas las postulaciones registradas? Esta acción no se puede deshacer.")) {
-                localStorage.removeItem('mta_postulaciones');
-                renderizarPostulaciones();
-            }
         }
     </script>
 </body>
